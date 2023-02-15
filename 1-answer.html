@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <!--1) Ekrana 4 input konulacak ( companyName, contactName ...) ve bir post işlemi yapılacak ( axios veya fetch ) yeni bir supplier eklenecek-->
+
+
+
+    <div>
+        <label for="">Company Name</label>
+        <input type="text" id="companyName">
+    </div>
+    <div>
+        <label for="">Contact Name</label>
+        <input type="text" id="contactName">
+    </div>
+    <div>
+        <label for="">Contact Title</label>
+        <input type="text" id="contactTitle">
+    </div>
+    <div>
+        <h2>Address</h2>
+        <label for="">Street</label>
+        <input type="text" id="street">
+
+        <label for="">City</label>
+        <input type="text" id="city">
+
+        <label for="">Region</label>
+        <input type="text" id="region">
+
+        <label for="">Postal Code</label>
+        <input type="text" id="postalCode">
+
+        <label for="">country</label>
+        <input type="text" id="country">
+
+        <label for="">phone</label>
+        <input type="text" id="phone">
+    </div>
+    <div>
+        <button onclick="add()">
+            Add
+        </button>
+    </div>
+</body>
+<script>
+    function add() {
+        let companyName = document.getElementById('companyName').value;
+        let contactName = document.getElementById('contactName').value;
+        let contactTitle = document.getElementById('contactTitle').value;
+        let street = document.getElementById('street').value;
+        let city = document.getElementById('city').value;
+        let region = document.getElementById('region').value;
+        let postalCode = document.getElementById('postalCode').value;
+        let country = document.getElementById('country').value;
+        let phone = document.getElementById('phone').value;
+
+        let newSupplier = {
+            companyName: companyName,
+            contactName: contactName,
+            contactTitle: contactTitle,
+            address: { street, city, region, postalCode, country, phone }
+
+        }
+        axios.post('https://northwind.vercel.app/api/suppliers', newSupplier)
+            .then(response => {
+                console.log('Response ', response);
+                alert("İşlem başarılı")
+            })
+
+    }
+
+</script>
+
+</html>

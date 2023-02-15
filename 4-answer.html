@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <!--** collectapi.com dan bir token oluşturulması. ve oluşturulan tokenla herhangi bir web api den data çekilmesi.
+axios ve fetchle AYRI AYRI YAPIN!-->
+
+    <div class="app">
+        <div class="header">
+            <button onclick="getWeather()">Ankara Hava Durumu</button>
+        </div>
+        <div id="city">
+            <div class="city">Şehir</div>
+
+        </div>
+        <div id="content">
+            <div class="desc">Durum</div>
+            <div class="temp">Derece</div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="appIst">
+        <div class="headerIst">
+            <button onclick="getWeatherIst()">İstanbul Hava Durumu</button>
+        </div>
+        <div id="cityIst">
+            <div class="cityIst">Şehir</div>
+
+        </div>
+        <div id="contentIst">
+            <div class="descIst">Durum</div>
+            <div class="tempIst">Derece</div>
+        </div>
+    </div>
+
+</body>
+<script>
+    function getWeather() {
+        axios.get(`https://api.collectapi.com/weather/getWeather?data.lang=tr&data.city=ankara`, {
+            headers: {
+                "authorization": "apikey 5a0YYaxmy9Dt4CKZ8jG7N7:09WO0RFnHJFbIkjpdbK0Qu"
+            }
+        })
+            .then((element) => {
+                
+               
+                    let city = document.querySelector('.city');
+                    city.innerHTML = element.data.city;
+
+                    let temp = document.querySelector('.temp');
+                    temp.innerHTML =element.data.result[0].degree+" °C";
+
+                    let desc = document.querySelector('.desc');
+                    desc.innerHTML=element.data.result[0].description;
+
+                    document.getElementById('content').appendChild(temp,desc);
+                    document.getElementById('city').appendChild(city);
+               console.log(element)
+            })
+            .catch(err => {
+                alert('Error')
+            })
+
+    }
+
+    function getWeatherIst(){
+        fetch('https://api.collectapi.com/weather/getWeather?data.lang=tr&data.city=İstanbul',{ 
+        method:"GET",
+        headers: {
+                "authorization": "apikey 5a0YYaxmy9Dt4CKZ8jG7N7:09WO0RFnHJFbIkjpdbK0Qu"
+            }
+        },)
+        .then(res=>{
+            return res.json()
+        })
+        .then((res) => {
+                
+               
+                let cityIst = document.querySelector('.cityIst');
+                cityIst.innerHTML = res.city;
+
+                let tempIst = document.querySelector('.tempIst');
+                tempIst.innerHTML =res.result[0].degree+" °C";
+
+                let descIst = document.querySelector('.descIst');
+                descIst.innerHTML=res.result[0].description;
+
+                document.getElementById('contentIst').appendChild(tempIst,descIst);
+                document.getElementById('cityIst').appendChild(cityIst);
+           console.log(res)
+        })
+      
+    }
+
+
+
+
+</script>
+
+</html>

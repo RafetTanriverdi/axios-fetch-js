@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <!--3) Ekrana bir input bir buton koy. Butona tıkladığında inputtan aldığı id ye uygun supplier ı silsin!-->
+    <div>
+        <h2>fetch</h2>
+        <label>Id: </label>
+        <input type="text" id="supplierId">
+    </div>
+    <div>
+        <button onclick="deleteSupplierId()">Delete</button>
+    </div>
+    <div>
+        <h2>Axios</h2>
+        <label>Id: </label>
+        <input type="text" id="supplierIdAxios">
+    </div>
+    <div>
+        <button onclick="deleteSupplierIdAxios()">Delete</button>
+    </div>
+</body>
+<script>
+    function deleteSupplierId() {
+        let id = document.getElementById('supplierId').value;
+
+        //https://northwind.vercel.app/api/suppliers linkinde delete işlemi olmamakta
+
+        fetch('https://northwind.vercel.app/api/categories/' + id, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(response => {
+                alert('Başarılı!  ' + id);
+            })
+            .catch(err => {
+                alert('Error')
+            })
+    }
+
+
+
+    function deleteSupplierIdAxios() {
+        // kod çalışmasına rağmen eror vermekte
+        let idAxios = document.getElementById('supplierIdAxios').value;
+        axios.delete('https://northwind.vercel.app/api/categories/' + idAxios)
+            .then(res => {
+                alert('Başarılı!  ' + id);
+            })
+            .catch(err => {
+                alert('Error')
+            })
+    }
+</script>
+
+</html>
